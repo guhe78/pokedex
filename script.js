@@ -1,39 +1,90 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
+const POKEMON_SPECIES_URL = "https://pokeapi.co/api/v2/pokemon-species/";
+
+const MORE_POKEMONS = document.getElementById("more_pokemons");
+const DIALOG = document.getElementById("dialog");
+
+function init() {}
 
 async function getPokemons() {
-  console.log("Start");
-  let pokemons = await fetch(BASE_URL);
-  let pokemonsToJson = await pokemons.json();
-  let length = pokemonsToJson.length;
-  console.log(length);
+  let pokemons = await fetchUrl(BASE_URL);
+  MORE_POKEMONS.onclick = getMorePokemons();
 
-  console.log(pokemonsToJson.results);
-  for (let i = 0; i < 40; i++) {
-    console.log(pokemonsToJson.results[i].url);
-    let singlePokemon = await getSinglePokemon(pokemonsToJson.results[i]);
-    console.log(singlePokemon);
-    renderPokemons(singlePokemon);
+  renderPokemons(pokemons.results);
+}
+
+async function getSinglePokemon(id) {
+  let pokemon = await fetchUrl(BASE_URL + id);
+
+  return pokemon;
+}
+
+async function renderPokemons(pokemons) {
+  let pokemonContent = document.getElementById("content");
+
+  for (let i = 0; i < pokemons.length; i++) {
+    let pokemon = await fetchUrl(pokemons[i].url);
+    let types = await getPokemonTypes(pokemon.types);
+    let species = await fetchUrl(pokemon.species.url);
+
+    pokemonContent.innerHTML += `
+    <div class="card" onclick="renderSinglePokemon(${pokemon.id})">
+      <div class="card_header">
+        <p>#${pokemon.id}</p><h5 class="card-title">${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h5>
+      </div>
+        <div class="card_body" style="background-color: ${species.color.name}">
+          <img src="${pokemon.sprites.other["official-artwork"].front_default}" alt="..." class="pokemon_img">
+        </div>
+      <div class="card_footer">
+        <div id="pokemon_types">${types}</div>
+      </div>
+    </div>
+    `;
   }
 }
 
-async function getSinglePokemon(singlePokemon) {
-  let pokemon = await fetch(singlePokemon.url);
-  let pokemonToJson = await pokemon.json();
-  console.log(pokemonToJson);
-  return pokemonToJson;
+function renderSinglePokemon(id) {
+  const POKEMON_DETAIL = document.getElementById("pokemon_detail");
+  let pokemon = fetchUrl(id);
+
+  console.log(pokemon);
+  POKEMON_DETAIL.innerHTML += `
+
+   `;
 }
 
-function renderPokemons(pokemon) {
-  let pokemonContent = document.getElementById("content");
-  pokemonContent.innerHTML += `
-    <div class="card" style="width: 18rem;">
-    <img src="${pokemon.sprites.other.home.front_shiny}" class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">${pokemon.name}</h5>
-        <a href="${pokemon.species.url}" class="btn btn-primary">Go somewhere</a>
-    </div>
-    </div>
-  `;
+async function getPokemonTypes(pokemonTypes) {
+  let imgString = "";
+  for (let i = 0; i < pokemonTypes.length; i++) {
+    let typeImg = await fetchUrl(pokemonTypes[i].type.url);
+    imgString += `
+    <img src="${typeImg.sprites["generation-iii"].colosseum.name_icon}" />
+    `;
+  }
+  return imgString;
 }
 
-function renderSinglePokemon() {}
+function getMorePokemons(url) {}
+
+async function fetchUrl(url) {
+  let response = await fetch(url);
+  let responseToJson = await response.json();
+  return responseToJson;
+}
+
+function onClickDialog() {}
+
+function toggleDialog() {
+  DIALOG.classList.toggle("open");
+  document.body.classList.toggle("no_scroll");
+}
+
+function openDialog() {
+  DIALOG.showModal();
+  toggleDialog();
+}
+
+function closeDialog() {
+  DIALOG.close();
+  toggleDialog();
+}

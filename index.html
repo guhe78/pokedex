@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./script.js"></script>
     <link
-      rel="stylesheet"
-      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+      rel="shortcut icon"
+      href="./assets/favicon/favicon-16x16.png"
+      type="image/x-icon"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
     <title>Pokedex</title>
   </head>
   <body onload="getPokemons()">
@@ -19,9 +20,14 @@
       </div>
     </header>
     <main>
-      <h2>Hier sollen Pokemons hin</h2>
       <div class="content" id="content"></div>
+      <button id="more_pokemons">Mehr laden...</button>
     </main>
+    <dialog id="dialog" onclick="closeDialog()">
+      <div class="pokemon_detail" id="pokemon_detail">
+        <h3>hallo</h3>
+      </div>
+    </dialog>
     <footer>
       <h3>&copy; 2026 - gh</h3>
     </footer>

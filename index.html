@@ -9,10 +9,11 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="./style.css" />
+    <script src="./scripts/templates.js" defer></script>
     <script src="./script.js" defer></script>
     <title>Pokedex</title>
   </head>
-  <body onload="getPokemons()">
+  <body onload="init()">
     <header>
       <div class="header_content">
         <h1>Pokedex</h1>
@@ -21,13 +22,12 @@
     </header>
     <main>
       <div class="content" id="content"></div>
-      <button id="more_pokemons">Mehr laden...</button>
-    </main>
-    <dialog id="dialog" onclick="closeDialog()">
-      <div class="pokemon_detail" id="pokemon_detail">
-        <h3>hallo</h3>
+      <div class="direction_buttons">
+        <button id="more_pokemons" onclick="getPrevPokemons()">Zurück</button>
+        <button id="more_pokemons" onclick="getNextPokemons()">Vor</button>
       </div>
-    </dialog>
+    </main>
+    <dialog id="dialog" onclick="closeDialog()"></dialog>
     <footer>
       <h3>&copy; 2026 - gh</h3>
     </footer>

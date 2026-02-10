@@ -25,9 +25,6 @@ h5 {
 }
 
 body {
-  display: flex;
-  flex-direction: column;
-
   background-color: #05171e;
   color: #c0cace;
   min-height: 100vh;
@@ -74,10 +71,8 @@ main {
   display: flex;
   flex-direction: column;
 
-  align-items: center;
-  justify-content: center;
   border: none;
-  border-radius: 8px;
+  border-radius: 32px;
   background-color: #082029;
 }
 
@@ -86,15 +81,31 @@ main {
   cursor: pointer;
 }
 
-.card_body {
+.overview_card_body {
   width: 200px;
   height: 250px;
+
+  display: flex;
+  align-items: center;
 }
 
 .pokemon_img {
   width: 100%;
   height: 100%;
+  object-fit: contain;
+}
+
+.overview_pokemon_card .type_image {
+  width: 30px;
+  height: 30px;
   object-fit: cover;
+  object-position: left;
+  border-radius: 50%;
+}
+
+.single_pokemon_card .type_image {
+  height: 25px;
+  object-fit: contain;
 }
 
 .card_header,
@@ -102,7 +113,7 @@ main {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px 8px;
+  padding: 4px 16px;
   width: 100%;
   height: 50px;
   color: #c0cace;
@@ -113,19 +124,26 @@ main {
 }
 
 dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  margin: auto;
 
-  border-radius: 8px;
+  border-radius: 32px;
   border: none;
 
-  background-color: blue;
   color: white;
 }
 
-.open::backdrop {
+dialog::backdrop {
   background-color: rgba(0, 0, 0, 0.9);
+}
+
+.card_body {
+  display: flex;
+  justify-content: space-between;
+  text-align: end;
+  width: 100%;
+}
+.dialog_image {
+  width: 200px;
 }
 
 .no_scroll {
@@ -133,9 +151,23 @@ dialog {
 }
 
 .pokemon_detail {
-  margin: 0 auto;
-  padding: 4px 8px;
   border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokemon_stats {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 0 0 0 16px;
+
+  height: 80px;
+  padding: 8px;
+}
+
+.attack_stats {
+  padding: 24px 8px;
 }
 
 footer {

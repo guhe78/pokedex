@@ -18,16 +18,26 @@ h5 {
   padding: 0;
 }
 
-.button {
+button {
   text-decoration: none;
-  color: white;
   border: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:disabled {
+  pointer-events: none;
 }
 
 body {
   background-color: #05171e;
   color: #c0cace;
   min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -43,6 +53,14 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 32px 16px;
+}
+
+input {
+  border-radius: 8px;
+  border: none;
+  font-size: 18px;
+  padding: 4px;
+  background-color: #c0cace;
 }
 
 main {
@@ -76,13 +94,13 @@ main {
   background-color: #082029;
 }
 
-.card:hover {
+.pokemon_overview_card:hover {
   filter: drop-shadow(4px 4px 4px gold);
   cursor: pointer;
 }
 
 .overview_card_body {
-  width: 200px;
+  width: 250px;
   height: 250px;
 
   display: flex;
@@ -100,7 +118,7 @@ main {
   height: 30px;
   object-fit: cover;
   object-position: left;
-  border-radius: 50%;
+  border-radius: 16px;
 }
 
 .single_pokemon_card .type_image {
@@ -129,6 +147,7 @@ dialog {
   border-radius: 32px;
   border: none;
 
+  background-color: transparent;
   color: white;
 }
 
@@ -142,6 +161,19 @@ dialog::backdrop {
   text-align: end;
   width: 100%;
 }
+
+.close_dialog {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.close_dialog:hover {
+  background-color: red;
+  color: white;
+}
+
 .dialog_image {
   width: 200px;
 }
@@ -150,15 +182,12 @@ dialog::backdrop {
   overflow: hidden;
 }
 
-.pokemon_detail {
-  border-radius: 8px;
-
+.pokemon_detail_card {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.pokemon_stats {
+.pokemon_stats_text {
   background-color: rgba(0, 0, 0, 0.4);
   border-radius: 0 0 0 16px;
 
@@ -166,8 +195,30 @@ dialog::backdrop {
   padding: 8px;
 }
 
+.pokemon_stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
 .attack_stats {
   padding: 24px 8px;
+}
+
+.play_sound {
+  width: 50px;
+  height: 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  margin-bottom: 48px;
+  margin-right: 8px;
+}
+
+.play_sound:hover {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 footer {
@@ -176,6 +227,25 @@ footer {
   align-items: center;
 
   height: 72px;
-  margin-top: 32px;
+  margin-top: auto;
   background-color: #082029;
+}
+
+.direction_buttons {
+  padding-bottom: 32px;
+}
+
+.direction_buttons button {
+  background-color: yellow;
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 24px;
+}
+
+.direction_buttons button:hover {
+  background-color: yellowgreen;
+  border: 1px solid blue;
+  cursor: pointer;
 }

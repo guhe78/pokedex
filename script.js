@@ -1,21 +1,63 @@
 const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
-const POKEMON_SPECIES_URL = "https://pokeapi.co/api/v2/pokemon-species/";
+const ALL_POKEMON_URL =
+  "https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0";
 
 const MORE_POKEMONS = document.getElementById("more_pokemons");
 const DIALOG = document.getElementById("dialog");
+const INPUT = document.getElementById("pokemon_search");
 
 let pokemonCount = 0;
 let maxPokemons;
 let nextPokemons;
 let previousPokemons;
+let limit = 25;
+let offset = 0;
+
+let searchPokemons = [];
+
+INPUT.onkeyup = searchPokemon;
+
+DIALOG.onclick = (event) => {
+  if (event.target === DIALOG) {
+    closeDialog();
+  }
+};
 
 function init() {
-  getPokemons(BASE_URL);
+  getPokemons(BASE_URL + "?limit=" + limit + "&offset=" + offset);
+  INPUT.value = "";
+}
+
+async function searchPokemon() {
+  let name = INPUT.value.trim();
+  searchPokemons = [];
+  if (name === "") {
+    init();
+  } else {
+    let allPokemons = await fetchUrl(ALL_POKEMON_URL);
+    for (let i = 0; i < allPokemons.results.length; i++) {
+      if (allPokemons.results[i].name.startsWith(name)) {
+        searchPokemons.push(allPokemons.results[i]);
+      }
+    }
+    searchPokemons.sort(sortAlphabetical(searchPokemons));
+    renderPokemons(searchPokemons);
+  }
+}
+
+async function getAllPokemons() {
+  let responseJson = await fetchUrl(ALL_POKEMON_URL);
+  let allPokemons = [];
+  for (let i = 0; i < responseJson.results; i++) {
+    let species = await fetchUrl(responseJson.results[i].url);
+    allPokemons.push(species);
+  }
+
+  renderPokemons(allPokemons);
 }
 
 async function getPokemons(url) {
   let pokemons = await fetchUrl(url);
-  console.log(pokemons);
   nextPokemons = pokemons.next;
   previousPokemons = pokemons.previous;
   maxPokemons = pokemons.count;
@@ -32,11 +74,15 @@ async function getSinglePokemon(id) {
 async function renderPokemons(pokemons) {
   let pokemonContent = document.getElementById("content");
   pokemonContent.innerHTML = "";
+  let length = pokemons.length;
+  if (length > limit) {
+    length = limit;
+  }
 
-  for (let i = 0; i < pokemons.length; i++) {
+  for (let i = 0; i < length; i++) {
     let pokemon = await fetchUrl(pokemons[i].url);
     let types = await getPokemonTypes(pokemon.types);
-    let species = await getSpecies(pokemons[i].name);
+    let species = await getSpecies(pokemon.species.url);
 
     pokemonContent.innerHTML += getPokemonOverviewTemplate(
       pokemon,
@@ -49,11 +95,17 @@ async function renderPokemons(pokemons) {
 async function renderSinglePokemon(id) {
   let pokemon = await getSinglePokemon(id);
   let stats = getStats(pokemon.stats);
-  let species = await getSpecies(pokemon.name);
+  let species = await getSpecies(pokemon.species.url);
   let types = await getPokemonTypes(pokemon.types);
+  let sound = await getSounds(id);
 
-  console.log(pokemon);
-  DIALOG.innerHTML = getSinglePokemonTemplate(pokemon, stats, species, types);
+  DIALOG.innerHTML = getSinglePokemonTemplate(
+    pokemon,
+    stats,
+    species,
+    types,
+    sound,
+  );
 }
 
 function getStats(stats) {
@@ -69,33 +121,49 @@ async function getPokemonTypes(pokemonTypes) {
   for (let i = 0; i < pokemonTypes.length; i++) {
     let typeImg = await fetchUrl(pokemonTypes[i].type.url);
     imgString += `
-    <img src="${typeImg.sprites["generation-viii"]["legends-arceus"].name_icon}" class="type_image" />
+    <img src="${
+      typeImg.sprites?.["generation-viii"]?.["legends-arceus"]?.name_icon ||
+      typeImg.sprites?.["generation-iii"]?.["colosseum"]?.name_icon
+    }" class="type_image" />
     `;
   }
   return imgString;
 }
 
-async function getSpecies(name) {
-  let species = await fetchUrl(POKEMON_SPECIES_URL + name);
+async function getSpecies(url) {
+  let species = await fetchUrl(url);
 
   return species;
 }
 
+async function getSounds(name) {
+  let json = await fetchUrl(BASE_URL + name);
+  return json.cries.latest;
+}
+
+async function playSound(file) {
+  let audio = new Audio(file);
+  audio.play().catch((error) => {
+    if (error.name !== "AbortError") {
+      console.error(error);
+    }
+  });
+}
+
 function getNextPokemons() {
-  if (pokemonCount + 20 > maxPokemons) {
+  if (pokemonCount + limit > maxPokemons) {
     return;
   } else {
-    pokemonCount = pokemonCount + 20;
+    pokemonCount = pokemonCount + limit;
     getPokemons(nextPokemons);
   }
-  console.log(pokemonCount);
 }
 
 function getPrevPokemons() {
-  if (pokemonCount - 20 < 0) {
+  if (pokemonCount - limit < 0) {
     return;
   } else {
-    pokemonCount = pokemonCount - 20;
+    pokemonCount = pokemonCount - limit;
     getPokemons(previousPokemons);
   }
   console.log(pokemonCount);
@@ -123,4 +191,16 @@ function openDialog(id) {
 function closeDialog() {
   DIALOG.close();
   toggleDialog();
+}
+
+function sortAlphabetical(array) {
+  array.sort(function (a, b) {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  });
 }

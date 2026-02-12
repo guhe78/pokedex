@@ -33,18 +33,23 @@ function getSinglePokemonTemplate(pokemon, stats, species, types, sound) {
             <button class="play_sound" ${!sound ? "disabled" : ""} onclick="playSound(\'${sound}'\)">${!sound ? "No cry" : "Cry &#127925;"}</button>
         </div>
     </div>
-    <div class="attack_stats">
-        ${stats}
-    </div>
+    <div class="attack_stats">${stats}</div>
     <div class="card_footer single_pokemon_card" id="pokemon_types">${types}</div>
 </div>
   `;
 }
 
-function getPokemonTypesTemplate(stats) {
+function getPokemonStatsTemplate(stats) {
   return `
-    <p>
-      ${stats.stat.name}: ${stats.base_stat}
-    </p>
+    <p>${stats.stat.name}: ${stats.base_stat}</p>
+    `;
+}
+
+function getPokemonTypesTemplate(typeImg) {
+  return `
+    <img src="${
+      typeImg.sprites?.["generation-viii"]?.["legends-arceus"]?.name_icon ||
+      typeImg.sprites?.["generation-iii"]?.["colosseum"]?.name_icon
+    }" class="type_image" />
     `;
 }

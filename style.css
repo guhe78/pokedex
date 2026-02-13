@@ -211,9 +211,7 @@ dialog::backdrop {
 }
 
 .stats_width {
-  width: 150px;
   height: 15px;
-  background-color: yellow;
 }
 
 .play_sound {
@@ -261,4 +259,21 @@ footer {
   background-color: yellowgreen;
   border: 1px solid blue;
   cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .header_content {
+    padding: 16px 8px;
+  }
+  input {
+    width: 120px;
+  }
+
+  .dialog_image {
+    width: 150px;
+  }
+
+  .play_sound {
+    margin-bottom: 24px;
+  }
 }

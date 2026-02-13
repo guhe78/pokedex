@@ -159,7 +159,7 @@ dialog::backdrop {
 
 .card_body {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   text-align: end;
   width: 100%;
 }
@@ -177,7 +177,9 @@ dialog::backdrop {
 }
 
 .dialog_image {
-  width: 200px;
+  width: 70%;
+  height: 400px;
+  object-fit: contain;
 }
 
 .no_scroll {
@@ -187,14 +189,16 @@ dialog::backdrop {
 .pokemon_detail_card {
   display: flex;
   flex-direction: column;
+  width: 450px;
 }
 
 .pokemon_stats_text {
   background-color: rgba(0, 0, 0, 0.4);
-  border-radius: 0 0 0 16px;
+  border-radius: 0 0 16px 16px;
 
   height: 80px;
   padding: 8px;
+  width: 100%;
 }
 
 .pokemon_stats {
@@ -221,12 +225,46 @@ dialog::backdrop {
   border: none;
   background-color: rgba(0, 0, 0, 0.4);
   color: white;
-  margin-bottom: 48px;
-  margin-right: 8px;
 }
 
 .play_sound:hover {
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+.stats_extra {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 120px;
+}
+
+.single_pokemon_types {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.single_directions {
+  background-color: #082029;
+  border-radius: 32px;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.single_directions button {
+  width: 60px;
+  height: 30px;
+  border-radius: 16px;
+  background-color: yellow;
+}
+
+.single_directions button:hover {
+  background-color: yellowgreen;
+  border: 1px solid blue;
+  cursor: pointer;
 }
 
 footer {
@@ -261,7 +299,13 @@ footer {
   cursor: pointer;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 500px) {
+  .pokemon_detail_card {
+    width: 400px;
+  }
+}
+
+@media (max-width: 450px) {
   .header_content {
     padding: 16px 8px;
   }
@@ -269,11 +313,27 @@ footer {
     width: 120px;
   }
 
-  .dialog_image {
-    width: 150px;
+  .pokemon_detail_card {
+    width: 300px;
   }
 
-  .play_sound {
-    margin-bottom: 24px;
+  .dialog_image {
+    width: 150px;
+    height: 200px;
+  }
+
+  .pokemon_stats {
+    justify-content: space-evenly;
+  }
+}
+
+@media (max-width: 350px) {
+  .pokemon_detail_card {
+    width: 250px;
+    height: 600px;
+  }
+
+  .pokemon_stats {
+    width: 100px;
   }
 }

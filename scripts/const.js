@@ -9,3 +9,6 @@ const LESS_POKEMONS = document.getElementById("less_pokemons");
 const TOTAL_POKEMONS = document.getElementById("total_pokemons");
 const START_RENDER = document.getElementById("start_render");
 const END_RENDER = document.getElementById("end_render");
+const PREV_POKEMON = document.getElementById("prev_pokemon");
+const NEXT_POKEMON = document.getElementById("next_pokemon");
+const POKEMON_CARD = document.getElementById("pokemon_card");

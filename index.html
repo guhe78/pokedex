@@ -9,12 +9,12 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="./style.css" />
-    <script src="./scripts/const.js" defer></script>
-    <script src="./scripts/var.js" defer></script>
-    <script src="./scripts/templates.js" defer></script>
-    <script src="./scripts/page_func.js" defer></script>
-    <script src="./scripts/pokemons.js"></script>
+    <script src="./scripts/pokemons.js" defer></script>
     <script src="./script.js" defer></script>
+    <script src="./scripts/const.js" defer></script>
+    <script src="./scripts/page_func.js" defer></script>
+    <script src="./scripts/templates.js" defer></script>
+    <script src="./scripts/var.js" defer></script>
     <title>Pokedex</title>
   </head>
   <body onload="init()">
@@ -35,7 +35,13 @@
         <button id="more_pokemons">next</button>
       </div>
     </main>
-    <dialog id="dialog" onclick="closeDialog()"></dialog>
+    <dialog id="dialog">
+      <div id="pokemon_card" class="pokemon_detail_card card"></div>
+      <div class="single_directions">
+        <button id="prev_pokemon">-1</button>
+        <button id="next_pokemon">+1</button>
+      </div>
+    </dialog>
     <footer>
       <h3>&copy; 2026 - gh</h3>
     </footer>

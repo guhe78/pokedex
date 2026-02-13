@@ -15,27 +15,27 @@ function getPokemonOverviewTemplate(pokemon, types, species) {
 
 function getSinglePokemonTemplate(pokemon, stats, species, types, sound) {
   return `
-  <div class="pokemon_detail_card card">
     <div class="card_header">
       <p>#${pokemon.id}</p>
       <h3>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
       <button class="close_dialog" onclick="closeDialog()">x</button>
     </div>
     <div class="card_body" style="background-color: ${species.color.name}">
-      <img src="${pokemon.sprites.other["official-artwork"].front_shiny}" 
+      <img src="${pokemon.sprites.other["official-artwork"].front_shiny || "./assets/icons/broken_image.png"}" 
           alt="${pokemon.name} von vorne" class="dialog_image">
         <div class="pokemon_stats">
           <div class="pokemon_stats_text">
-            <p>xp: ${pokemon.base_experience}</p>
+            <p>xp: ${pokemon.base_experience || "N/A"}</p>
             <p>Größe: ${pokemon.height}</p>
             <p>Gewicht: ${pokemon.weight}</p>
           </div>
+          <div class="stats_extra">
             <button class="play_sound" ${!sound ? "disabled" : ""} onclick="playSound(\'${sound}'\)">${!sound ? "No cry" : "Cry &#127925;"}</button>
+            <div class="single_pokemon_types" id="pokemon_types">${types}</div>
+          </div>
         </div>
     </div>
     <div class="attack_stats">${stats}</div>
-    <div class="card_footer single_pokemon_card" id="pokemon_types">${types}</div>
-</div>
   `;
 }
 

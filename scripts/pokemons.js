@@ -63,7 +63,10 @@ async function renderSinglePokemon(url) {
   let sound = await getSounds(url);
   let stats = getStats(pokemon.stats);
 
-  DIALOG.innerHTML = getSinglePokemonTemplate(
+  PREV_POKEMON.onclick = () => prevPokemon(pokemon.name);
+  NEXT_POKEMON.onclick = () => nextPokemon(pokemon.name);
+
+  POKEMON_CARD.innerHTML = getSinglePokemonTemplate(
     pokemon,
     stats,
     species,
@@ -99,41 +102,6 @@ async function getSounds(url) {
   let json = await fetchUrl(url);
 
   return json.cries.latest;
-}
-
-function getNextPokemons() {
-  let array = [];
-  start = start + limit;
-  end = end + limit;
-  LESS_POKEMONS.style.display = "inline";
-  if (end > maxPokemons) {
-    MORE_POKEMONS.style.display = "none";
-    end = maxPokemons;
-  }
-  setPokemonNumbers();
-  for (let i = start; i < end; i++) {
-    array.push(renderedPokemons[i]);
-  }
-  renderPokemons(array);
-}
-
-function getPrevPokemons() {
-  let array = [];
-  start = start - limit;
-  end = end - limit;
-
-  if (end < limit) {
-    end = limit;
-  }
-  setPokemonNumbers();
-  MORE_POKEMONS.style.display = "inline";
-  if (start <= 0) {
-    LESS_POKEMONS.style.display = "none";
-  }
-  for (let i = start; i < end; i++) {
-    array.push(renderedPokemons[i]);
-  }
-  renderPokemons(array);
 }
 
 async function fetchUrl(url) {

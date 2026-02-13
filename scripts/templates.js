@@ -42,6 +42,7 @@ function getSinglePokemonTemplate(pokemon, stats, species, types, sound) {
 function getPokemonStatsTemplate(stats) {
   return `
     <p>${stats.stat.name}: ${stats.base_stat}</p>
+    <div class="stats_width" style="width: ${stats.base_stat > 100 ? 105 : stats.base_stat}%; background-color: ${stats.base_stat > 100 ? "red" : ""}"></div>
     `;
 }
 

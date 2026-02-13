@@ -9,7 +9,11 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="./style.css" />
+    <script src="./scripts/const.js" defer></script>
+    <script src="./scripts/var.js" defer></script>
     <script src="./scripts/templates.js" defer></script>
+    <script src="./scripts/page_func.js" defer></script>
+    <script src="./scripts/pokemons.js"></script>
     <script src="./script.js" defer></script>
     <title>Pokedex</title>
   </head>
@@ -24,6 +28,7 @@
       <div class="content" id="content"></div>
       <div class="direction_buttons">
         <button id="less_pokemons">prev</button>
+        <p>Gesamt: <span id="total_pokemons"></span></p>
         <button id="more_pokemons">next</button>
       </div>
     </main>

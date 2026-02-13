@@ -34,3 +34,12 @@ async function playSound(file) {
     }
   });
 }
+
+function proofDirectionButtons() {
+  if (limit >= maxPokemons) {
+    MORE_POKEMONS.style.display = "none";
+    LESS_POKEMONS.style.display = "none";
+  } else {
+    MORE_POKEMONS.style.display = "inline";
+  }
+}

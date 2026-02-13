@@ -1,6 +1,5 @@
 async function searchPokemon() {
   let name = INPUT.value.trim().toLowerCase();
-
   startDirection();
   if (name === "") {
     init();
@@ -10,27 +9,23 @@ async function searchPokemon() {
         searchPokemons.push(allPokemons[i]);
       }
     }
-    searchPokemons.sort(sortAlphabetical(searchPokemons));
-    renderedPokemons = searchPokemons;
-    maxPokemons = searchPokemons.length;
-    TOTAL_POKEMONS.innerHTML = maxPokemons;
-
+    setPokemons(searchPokemons.sort(sortAlphabetically(searchPokemons)));
     renderPokemons(renderedPokemons);
-    if (limit >= maxPokemons) {
-      MORE_POKEMONS.style.display = "none";
-      LESS_POKEMONS.style.display = "none";
-    } else {
-      MORE_POKEMONS.style.display = "inline";
-    }
+    proofDirectionButtons();
   }
+}
+
+function setPokemons(pokemons) {
+  renderedPokemons = pokemons;
+  maxPokemons = pokemons.length;
+  TOTAL_POKEMONS.innerHTML = maxPokemons;
 }
 
 async function getAllPokemons() {
   let responseJson = await fetchUrl(ALL_POKEMON_URL);
   allPokemons = responseJson.results;
-  maxPokemons = responseJson.results.length;
-  TOTAL_POKEMONS.innerHTML = maxPokemons;
-  renderedPokemons = allPokemons;
+  setPokemons(allPokemons);
+
   renderPokemons(renderedPokemons);
 }
 
@@ -63,10 +58,10 @@ async function renderPokemons(pokemons) {
 
 async function renderSinglePokemon(url) {
   let pokemon = await getSinglePokemon(url);
-  let stats = getStats(pokemon.stats);
-  let species = await getSpecies(pokemon.species.url);
   let types = await getPokemonTypes(pokemon.types);
+  let species = await getSpecies(pokemon.species.url);
   let sound = await getSounds(url);
+  let stats = getStats(pokemon.stats);
 
   DIALOG.innerHTML = getSinglePokemonTemplate(
     pokemon,
@@ -102,24 +97,19 @@ async function getSpecies(url) {
 
 async function getSounds(url) {
   let json = await fetchUrl(url);
+
   return json.cries.latest;
 }
 
 function getNextPokemons() {
   let array = [];
-
   start = start + limit;
   end = end + limit;
-  if (end > maxPokemons - end) {
+  LESS_POKEMONS.style.display = "inline";
+  if (end > maxPokemons) {
     MORE_POKEMONS.style.display = "none";
     end = maxPokemons;
-    console.log("start:" + start + "end:" + end);
   }
-
-  console.log("--- start:" + start + "end:" + end);
-
-  LESS_POKEMONS.style.display = "inline";
-  LESS_POKEMONS.innerHTML = "-" + limit;
   for (let i = start; i < end; i++) {
     array.push(renderedPokemons[i]);
   }
@@ -128,23 +118,20 @@ function getNextPokemons() {
 
 function getPrevPokemons() {
   let array = [];
-  console.log("start:" + start + "end:" + end + " limit" + limit);
-
   start = start - limit;
   end = end - limit;
+
   if (end < limit) {
     end = limit;
   }
-  console.log("start:" + start + "end:" + end + " limit" + limit);
-  MORE_POKEMONS.style.display = "inline";
 
+  MORE_POKEMONS.style.display = "inline";
   if (start <= 0) {
     LESS_POKEMONS.style.display = "none";
   }
   for (let i = start; i < end; i++) {
     array.push(renderedPokemons[i]);
   }
-
   renderPokemons(array);
 }
 
@@ -154,7 +141,7 @@ async function fetchUrl(url) {
   return responseToJson;
 }
 
-function sortAlphabetical(array) {
+function sortAlphabetically(array) {
   array.sort(function (a, b) {
     if (a.name < b.name) {
       return -1;

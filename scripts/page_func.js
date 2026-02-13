@@ -43,3 +43,8 @@ function proofDirectionButtons() {
     MORE_POKEMONS.style.display = "inline";
   }
 }
+
+function setPokemonNumbers() {
+  START_RENDER.innerHTML = start + 1;
+  END_RENDER.innerHTML = end;
+}

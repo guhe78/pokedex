@@ -110,6 +110,7 @@ function getNextPokemons() {
     MORE_POKEMONS.style.display = "none";
     end = maxPokemons;
   }
+  setPokemonNumbers();
   for (let i = start; i < end; i++) {
     array.push(renderedPokemons[i]);
   }
@@ -124,7 +125,7 @@ function getPrevPokemons() {
   if (end < limit) {
     end = limit;
   }
-
+  setPokemonNumbers();
   MORE_POKEMONS.style.display = "inline";
   if (start <= 0) {
     LESS_POKEMONS.style.display = "none";

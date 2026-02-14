@@ -2,14 +2,19 @@ async function searchPokemon() {
   let name = INPUT.value.trim().toLowerCase();
   startDirection();
   if (name === "") {
-    init();
+    renderPokemons(allPokemons);
+    setPokemons(allPokemons);
   } else {
+    searchPokemons = [];
     for (let i = 0; i < allPokemons.length; i++) {
       if (allPokemons[i].name.startsWith(name)) {
         searchPokemons.push(allPokemons[i]);
       }
     }
-    searchPokemons.sort();
+    searchPokemons.sort((a, b) =>
+      a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
+    );
+
     setPokemons(searchPokemons);
     renderPokemons(renderedPokemons);
     proofDirectionButtons();

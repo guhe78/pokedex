@@ -1,7 +1,8 @@
 function init() {
-  getAllPokemons();
-  INPUT.value = "";
+  fetchAllPokemons();
   startDirection();
+
+  INPUT.value = "";
 }
 
 function startDirection() {
@@ -9,9 +10,12 @@ function startDirection() {
   searchPokemons = [];
   start = 0;
   end = limit;
-  LESS_POKEMONS.style.display = "none";
-  MORE_POKEMONS.disabled = false;
-  MORE_POKEMONS.innerHTML = "+" + limit;
-  LESS_POKEMONS.innerHTML = "-" + limit;
+
   setPokemonNumbers();
+}
+
+async function fetchAllPokemons() {
+  let responseJson = await fetchUrl(ALL_POKEMON_URL);
+  allPokemons = responseJson.results;
+  getAllPokemons();
 }

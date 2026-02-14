@@ -96,8 +96,12 @@ main {
   background-color: #082029;
 }
 
+.pokemon_overview_card {
+  border: 2px solid transparent;
+}
+
 .pokemon_overview_card:hover {
-  filter: drop-shadow(4px 4px 4px gold);
+  border: 2px solid gold;
   cursor: pointer;
 }
 
@@ -258,7 +262,7 @@ dialog::backdrop {
   width: 60px;
   height: 30px;
   border-radius: 16px;
-  background-color: yellow;
+  background-color: gold;
 }
 
 .single_directions button:hover {
@@ -285,7 +289,7 @@ footer {
 }
 
 .direction_buttons button {
-  background-color: yellow;
+  background-color: gold;
   width: 100px;
   height: 30px;
   border: none;
@@ -324,6 +328,11 @@ footer {
 
   .pokemon_stats {
     justify-content: space-evenly;
+  }
+
+  .direction_buttons button {
+    width: 50px;
+    font-size: 16px;
   }
 }
 

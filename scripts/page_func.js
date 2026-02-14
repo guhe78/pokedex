@@ -1,4 +1,6 @@
-INPUT.onkeyup = searchPokemon;
+INPUT.onkeyup = (event) => {
+  searchPokemon();
+};
 
 MORE_POKEMONS.onclick = getNextPokemons;
 LESS_POKEMONS.onclick = getPrevPokemons;
@@ -40,24 +42,31 @@ function proofDirectionButtons() {
     LESS_POKEMONS.style.display = "none";
   } else {
     MORE_POKEMONS.style.display = "inline";
+    LESS_POKEMONS.style.display = "inline";
   }
 }
 
 function setPokemonNumbers() {
   START_RENDER.innerHTML = start + 1;
-  END_RENDER.innerHTML = end;
+  if (end > maxPokemons) {
+    END_RENDER.innerHTML = maxPokemons;
+  } else {
+    END_RENDER.innerHTML = end;
+  }
 }
 
 function getNextPokemons() {
   let array = [];
   start = start + limit;
   end = end + limit;
-  LESS_POKEMONS.style.display = "inline";
+  if (start >= maxPokemons) {
+    start = 0;
+    end = limit;
+  }
   if (end > maxPokemons) {
-    MORE_POKEMONS.style.display = "none";
     end = maxPokemons;
   }
-  setPokemonNumbers();
+
   for (let i = start; i < end; i++) {
     array.push(renderedPokemons[i]);
   }
@@ -66,17 +75,21 @@ function getNextPokemons() {
 
 function getPrevPokemons() {
   let array = [];
-  start = start - limit;
-  end = end - limit;
 
-  if (end < limit) {
-    end = limit;
+  if (end - start < limit) {
+    end = start;
+    start = start - limit;
+  } else {
+    start = start - limit;
+    end = end - limit;
   }
-  setPokemonNumbers();
-  MORE_POKEMONS.style.display = "inline";
-  if (start <= 0) {
-    LESS_POKEMONS.style.display = "none";
+  if (start < 0) {
+    if (maxPokemons % limit) {
+      start = maxPokemons - (maxPokemons % limit);
+      end = maxPokemons;
+    }
   }
+
   for (let i = start; i < end; i++) {
     array.push(renderedPokemons[i]);
   }
@@ -91,8 +104,6 @@ function nextPokemon(id) {
   } else {
     index = index + 1;
   }
-  console.log(renderedPokemons);
-  console.log(index);
   renderSinglePokemon(renderedPokemons[index].url);
 }
 
@@ -104,6 +115,13 @@ function prevPokemon(id) {
   } else {
     index--;
   }
-  console.log(renderedPokemons);
   renderSinglePokemon(renderedPokemons[index].url);
+}
+
+function proofName(name) {
+  if (name.length > 13) {
+    return name.slice(0, 14) + "...";
+  } else {
+    return name;
+  }
 }

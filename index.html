@@ -9,19 +9,23 @@
       type="image/x-icon"
     />
     <link rel="stylesheet" href="./style.css" />
+    <script src="./scripts/var.js" defer></script>
     <script src="./scripts/pokemons.js" defer></script>
-    <script src="./script.js" defer></script>
+    <script src="./script.js"></script>
     <script src="./scripts/const.js" defer></script>
     <script src="./scripts/page_func.js" defer></script>
     <script src="./scripts/templates.js" defer></script>
-    <script src="./scripts/var.js" defer></script>
     <title>Pokedex</title>
   </head>
   <body onload="init()">
     <header>
       <div class="header_content">
         <h1>Pokedex</h1>
-        <input id="pokemon_search" type="text" />
+        <input
+          id="pokemon_search"
+          type="text"
+          placeholder="filter by name..."
+        />
       </div>
     </header>
     <main>

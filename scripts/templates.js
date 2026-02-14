@@ -3,10 +3,10 @@ function getPokemonOverviewTemplate(pokemon, types, species) {
     <div class="pokemon_overview_card card" onclick="openDialog(${pokemon.id})">
       <div class="card_header">
         <p>#${pokemon.id}</p>
-        <h3>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
+        <h3 class="pokemon_name_overview">${proofName(pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1))}</h3>
       </div>
         <div class="overview_card_body" style="background-color: ${species.color.name}">
-          <img src="${pokemon.sprites.other["dream_world"].front_default || pokemon.sprites.other["official-artwork"].front_shiny || pokemon.sprites.front_default}" alt="Image des Pokemons" class="pokemon_img">
+          <img src="${pokemon.sprites.other["dream_world"].front_default || pokemon.sprites.other["official-artwork"].front_shiny || pokemon.sprites.front_default || "./assets/icons/broken_image.png"}" alt="Image des Pokemons" loading="lazy" class="pokemon_img">
         </div>
         <div class="card_footer overview_pokemon_card" id="pokemon_types">${types}</div>
     </div>
@@ -21,7 +21,7 @@ function getSinglePokemonTemplate(pokemon, stats, species, types, sound) {
       <button class="close_dialog" onclick="closeDialog()">x</button>
     </div>
     <div class="card_body" style="background-color: ${species.color.name}">
-      <img src="${pokemon.sprites.other["official-artwork"].front_shiny || "./assets/icons/broken_image.png"}" 
+      <img src="${pokemon.sprites.other["official-artwork"].front_shiny || "./assets/icons/broken_image.png"}" loading="lazy" 
           alt="${pokemon.name} von vorne" class="dialog_image">
         <div class="pokemon_stats">
           <div class="pokemon_stats_text">
@@ -51,6 +51,6 @@ function getPokemonTypesTemplate(typeImg) {
     <img src="${
       typeImg.sprites?.["generation-viii"]?.["legends-arceus"]?.name_icon ||
       typeImg.sprites?.["generation-iii"]?.["colosseum"]?.name_icon
-    }" class="type_image" />
+    }" class="type_image" loading="lazy" />
     `;
 }

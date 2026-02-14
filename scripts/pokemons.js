@@ -9,7 +9,8 @@ async function searchPokemon() {
         searchPokemons.push(allPokemons[i]);
       }
     }
-    setPokemons(searchPokemons.sort(sortAlphabetically(searchPokemons)));
+    searchPokemons.sort();
+    setPokemons(searchPokemons);
     renderPokemons(renderedPokemons);
     proofDirectionButtons();
   }
@@ -22,8 +23,6 @@ function setPokemons(pokemons) {
 }
 
 async function getAllPokemons() {
-  let responseJson = await fetchUrl(ALL_POKEMON_URL);
-  allPokemons = responseJson.results;
   setPokemons(allPokemons);
 
   renderPokemons(renderedPokemons);
@@ -42,6 +41,7 @@ async function renderPokemons(pokemons) {
   if (length > limit) {
     length = limit;
   }
+  setPokemonNumbers();
 
   for (let i = 0; i < length; i++) {
     let pokemon = await getSinglePokemon(pokemons[i].url);

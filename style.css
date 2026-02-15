@@ -338,8 +338,7 @@ footer {
 
 @media (max-width: 350px) {
   .pokemon_detail_card {
-    width: 250px;
-    height: 600px;
+    width: 260px;
   }
 
   .pokemon_stats {

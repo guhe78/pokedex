@@ -14,10 +14,6 @@ async function searchPokemon() {
   }
 }
 
-async function getAllPokemons() {
-  setPokemons(allPokemons);
-}
-
 function setPokemons(pokemons) {
   renderedPokemons = pokemons;
   renderPokemons(renderedPokemons);
@@ -38,12 +34,10 @@ async function renderPokemons(pokemons) {
   if (length > limit) {
     length = limit;
   }
-
   for (let i = 0; i < length; i++) {
     let pokemon = await getSinglePokemon(pokemons[i].url);
     let types = await getPokemonTypes(pokemon.types);
     let species = await getSpecies(pokemon.species.url);
-
     pokemonContent.innerHTML += getPokemonOverviewTemplate(
       pokemon,
       types,
@@ -90,13 +84,11 @@ async function getPokemonTypes(pokemonTypes) {
 
 async function getSpecies(url) {
   let species = await fetchUrl(url);
-
   return species;
 }
 
 async function getSounds(url) {
   let json = await fetchUrl(url);
-
   return json.cries.latest;
 }
 

@@ -4,5 +4,4 @@ let start;
 let end;
 
 let allPokemons = [];
-let searchPokemons = [];
 let renderedPokemons = [];

@@ -5,15 +5,11 @@ async function searchPokemon() {
     renderPokemons(allPokemons);
     setPokemons(allPokemons);
   } else {
-    searchPokemons = [];
-    for (let i = 0; i < allPokemons.length; i++) {
-      if (allPokemons[i].name.startsWith(name)) {
-        searchPokemons.push(allPokemons[i]);
-      }
-    }
-    searchPokemons.sort((a, b) =>
-      a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
-    );
+    let searchPokemons = allPokemons
+      .filter((pokemons) => pokemons.name.startsWith(name))
+      .sort((a, b) =>
+        a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
+      );
 
     setPokemons(searchPokemons);
     renderPokemons(renderedPokemons);

@@ -2,7 +2,6 @@ async function searchPokemon() {
   let name = INPUT.value.trim().toLowerCase();
   startDirection();
   if (name === "") {
-    renderPokemons(allPokemons);
     setPokemons(allPokemons);
   } else {
     let searchPokemons = allPokemons
@@ -10,28 +9,25 @@ async function searchPokemon() {
       .sort((a, b) =>
         a.name.localeCompare(b.name, "de", { sensitivity: "base" }),
       );
-
     setPokemons(searchPokemons);
-    renderPokemons(renderedPokemons);
     proofDirectionButtons();
   }
 }
 
-function setPokemons(pokemons) {
-  renderedPokemons = pokemons;
-  maxPokemons = pokemons.length;
-  TOTAL_POKEMONS.innerHTML = maxPokemons;
-}
-
 async function getAllPokemons() {
   setPokemons(allPokemons);
+}
 
+function setPokemons(pokemons) {
+  renderedPokemons = pokemons;
   renderPokemons(renderedPokemons);
+  maxPokemons = pokemons.length;
+  TOTAL_POKEMONS.innerHTML = maxPokemons;
+  setPokemonNumbers();
 }
 
 async function getSinglePokemon(url) {
   let pokemon = await fetchUrl(url);
-
   return pokemon;
 }
 
@@ -42,7 +38,6 @@ async function renderPokemons(pokemons) {
   if (length > limit) {
     length = limit;
   }
-  setPokemonNumbers();
 
   for (let i = 0; i < length; i++) {
     let pokemon = await getSinglePokemon(pokemons[i].url);

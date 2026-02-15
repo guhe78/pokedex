@@ -56,7 +56,6 @@ function setPokemonNumbers() {
 }
 
 function getNextPokemons() {
-  let array = [];
   start = start + limit;
   end = end + limit;
   if (start >= maxPokemons) {
@@ -66,16 +65,10 @@ function getNextPokemons() {
   if (end > maxPokemons) {
     end = maxPokemons;
   }
-
-  for (let i = start; i < end; i++) {
-    array.push(renderedPokemons[i]);
-  }
-  renderPokemons(array);
+  pushArray(renderedPokemons);
 }
 
 function getPrevPokemons() {
-  let array = [];
-
   if (end - start < limit) {
     end = start;
     start = start - limit;
@@ -89,11 +82,15 @@ function getPrevPokemons() {
       end = maxPokemons;
     }
   }
+  pushArray(renderedPokemons);
+}
 
+function pushArray(array) {
+  let renderArray = [];
   for (let i = start; i < end; i++) {
-    array.push(renderedPokemons[i]);
+    renderArray.push(array[i]);
   }
-  renderPokemons(array);
+  renderPokemons(renderArray);
 }
 
 function nextPokemon(id) {

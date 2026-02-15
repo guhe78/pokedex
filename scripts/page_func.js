@@ -65,6 +65,7 @@ function getNextPokemons() {
   if (end > maxPokemons) {
     end = maxPokemons;
   }
+  setPokemonNumbers();
   pushArray(renderedPokemons);
 }
 
@@ -82,6 +83,7 @@ function getPrevPokemons() {
       end = maxPokemons;
     }
   }
+  setPokemonNumbers();
   pushArray(renderedPokemons);
 }
 

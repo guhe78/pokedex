@@ -1,6 +1,6 @@
 function getPokemonOverviewTemplate(pokemon, types, species) {
   return `
-    <div class="pokemon_overview_card card" onclick="openDialog(${pokemon.id})">
+    <article class="pokemon_overview_card card" onclick="openDialog(${pokemon.id})">
       <div class="card_header">
         <p>#${pokemon.id}</p>
         <h3 class="pokemon_name_overview">${proofName(pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1))}</h3>
@@ -9,7 +9,7 @@ function getPokemonOverviewTemplate(pokemon, types, species) {
           <img src="${pokemon.sprites.other["dream_world"].front_default || pokemon.sprites.other["official-artwork"].front_shiny || pokemon.sprites.front_default || "./assets/icons/broken_image.png"}" alt="Image des Pokemons" loading="lazy" class="pokemon_img">
         </div>
         <div class="card_footer overview_pokemon_card" id="pokemon_types">${types}</div>
-    </div>
+    </article>
     `;
 }
 
@@ -18,7 +18,7 @@ function getSinglePokemonTemplate(pokemon, stats, species, types, sound) {
     <div class="card_header">
       <p>#${pokemon.id}</p>
       <h3>${pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</h3>
-      <button class="close_dialog" onclick="closeDialog()">x</button>
+      <button class="close_dialog" onclick="closeDialog()" aria-label="Dialog schliessen">x</button>
     </div>
     <div class="card_body" style="background-color: ${species.color.name}">
       <img src="${pokemon.sprites.other["official-artwork"].front_shiny || "./assets/icons/broken_image.png"}" loading="lazy" 

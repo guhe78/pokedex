@@ -4,8 +4,8 @@
  */
 async function init() {
   initEventListeners();
-  await fetchAllPokemons();
   startDirection();
+  await fetchAllPokemons();
   INPUT.value = "";
 }
 
@@ -13,8 +13,6 @@ async function init() {
  * This function is called when the user types in the search input field. It trims the input value, converts it to lowercase, and then filters the list of all pokemons based on whether their names start with the input value. The filtered list is then sorted alphabetically and rendered on the page. If the input value is empty, all pokemons are rendered.
  */
 function startDirection() {
-  renderedPokemons = [];
-  searchPokemons = [];
   start = 0;
   end = limit;
   setPokemonNumbers();

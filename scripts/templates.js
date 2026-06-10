@@ -1,3 +1,10 @@
+/**
+ * This function generates the HTML template for a pokemon's overview card.
+ * @param {Object} pokemon - The pokemon object containing its details.
+ * @param {string} types - The types of the pokemon.
+ * @param {Object} species - The species object containing color information.
+ * @returns {string} - The HTML template for the pokemon's overview card.
+ */
 function getPokemonOverviewTemplate(pokemon, types, species) {
   return `
     <article class="pokemon_overview_card card" onclick="openDialog(${pokemon.id})">
@@ -13,6 +20,15 @@ function getPokemonOverviewTemplate(pokemon, types, species) {
     `;
 }
 
+/**
+ * This function generates the HTML template for a single pokemon's detailed view.
+ * @param {Object} pokemon - The pokemon object containing its details.
+ * @param {Array} stats - The array of stats for the pokemon.
+ * @param {Object} species - The species object containing color information.
+ * @param {string} types - The types of the pokemon.
+ * @param {string} sound - The sound file path for the pokemon's cry.
+ * @returns {string} - The HTML template for the single pokemon view.
+ */
 function getSinglePokemonTemplate(pokemon, stats, species, types, sound) {
   return `
     <div class="card_header">
@@ -39,6 +55,11 @@ function getSinglePokemonTemplate(pokemon, stats, species, types, sound) {
   `;
 }
 
+/**
+ * This function generates the HTML template for a pokemon's stats.
+ * @param {Object} stats - The stats object containing the stat name and base stat value.
+ * @returns {string} - The HTML template for the pokemon's stats.
+ */
 function getPokemonStatsTemplate(stats) {
   return `
     <p>${stats.stat.name}: ${stats.base_stat}</p>
@@ -46,6 +67,11 @@ function getPokemonStatsTemplate(stats) {
     `;
 }
 
+/**
+ * This function generates the HTML template for a pokemon's types.
+ * @param {Object} typeImg - The type image object containing the sprites for different generations.
+ * @returns {string} - The HTML template for the pokemon's types.
+ */
 function getPokemonTypesTemplate(typeImg) {
   return `
     <img src="${

@@ -275,10 +275,22 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 64px;
 
   height: 72px;
   margin-top: auto;
   background-color: #082029;
+}
+
+footer a {
+  text-decoration: none;
+  color: #c0cace;
+}
+
+footer a:hover {
+  cursor: pointer;
+  text-decoration: underline;
+  filter: brightness(150%);
 }
 
 .direction_buttons {
@@ -301,6 +313,22 @@ footer {
   background-color: yellowgreen;
   border: 1px solid blue;
   cursor: pointer;
+}
+
+.impressum {
+  max-width: 1024px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  gap: 16px;
+}
+
+.impressum button {
+  padding: 16px 24px;
+  align-self: center;
+  border-radius: 12px;
+  font-size: 24px;
 }
 
 @media (max-width: 500px) {

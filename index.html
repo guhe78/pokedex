@@ -3,11 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="shortcut icon"
-      href="./assets/favicon/favicon-16x16.png"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="./assets/favicon/favicon-16x16.png" type="image/x-icon" />
     <link rel="stylesheet" href="./style.css" />
     <script src="./scripts/var.js" defer></script>
     <script src="./scripts/pokemons.js" defer></script>
@@ -22,42 +18,31 @@
       <div class="header_content">
         <h1>Pokedex</h1>
         <form role="search">
-          <input
-            id="pokemon_search"
-            type="search"
-            placeholder="filter by name..."
-          />
+          <input id="pokemon_search" type="search" placeholder="filter by name..." />
         </form>
       </div>
     </header>
     <main>
       <section class="content" id="content"></section>
       <nav class="direction_buttons">
-        <button id="less_pokemons" aria-label="Weniger Pokémon anzeigen">
-          prev
-        </button>
+        <button id="less_pokemons" aria-label="Weniger Pokémon anzeigen">prev</button>
         <p>
           <span id="start_render"></span> - <span id="end_render"></span> /
           <span id="total_pokemons"></span>
         </p>
-        <button id="more_pokemons" aria-label="Mehr Pokémon anzeigen">
-          next
-        </button>
+        <button id="more_pokemons" aria-label="Mehr Pokémon anzeigen">next</button>
       </nav>
     </main>
     <dialog id="dialog" aria-labelledby="pokemon-title">
       <div id="pokemon_card" class="pokemon_detail_card card"></div>
       <nav class="single_directions">
-        <button id="prev_pokemon" aria-label="Vorigen Pokémon anzeigen">
-          -1
-        </button>
-        <button id="next_pokemon" aria-label="Nächsten Pokémon anzeigen">
-          +1
-        </button>
+        <button id="prev_pokemon" aria-label="Vorigen Pokémon anzeigen">-1</button>
+        <button id="next_pokemon" aria-label="Nächsten Pokémon anzeigen">+1</button>
       </nav>
     </dialog>
     <footer>
       <h3>&copy; 2026 - gh</h3>
+      <a href="pages/impressum.html">Impressum&Datenschutz</a>
     </footer>
   </body>
 </html>

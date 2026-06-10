@@ -119,7 +119,7 @@ function prevPokemon(id) {
 
 function proofName(name) {
   if (name.length > 13) {
-    return name.slice(0, 14) + "...";
+    return name.slice(0, 12) + "...";
   } else {
     return name;
   }
